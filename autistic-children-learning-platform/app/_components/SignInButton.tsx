@@ -1,7 +1,7 @@
 //we cant use onClick -> instead use server action to keep it server component
 
 //Todo change
-import { signInAction } from "../_actions/signInAction";
+import { signInAction } from "@/app/_lib/actions";
 
 function SignInButton() {
   return (

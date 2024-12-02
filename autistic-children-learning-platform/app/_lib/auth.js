@@ -1,8 +1,8 @@
 import NextAuth from "next-auth";
 import Google from "next-auth/providers/google";
-import { createGuest, getGuest } from "./data_service";
-
-//Todo edit
+import { createChild, existingUser, getAge } from "@app/_lib/data_service";
+import { trackSynchronousPlatformIOAccessInDev } from "next/dist/server/app-render/dynamic-rendering";
+// Define the User type with the age property
 
 const authConfig = {
   providers: [
@@ -18,19 +18,19 @@ const authConfig = {
     },
     async signIn({ user, account, profile }) {
       try {
-        const existingGuest = await getGuest(user.email);
+        const existingChild = await existingUser(user.email);
 
-        if (!existingGuest)
-          await createGuest({ email: user.email, fullName: user.name });
-
+        if (!existingChild)
+          await createChild({ email: user.email, fullName: user.name });
         return true;
       } catch {
         return false;
       }
     },
     async session({ session, user }) {
-      const guest = await getGuest(session.user.email);
-      session.user.guestId = guest.id;
+      const age = await getAge(session.user.email);
+      session.user.age = age;
+      console.log(age);
       return session;
     },
   },
@@ -43,5 +43,5 @@ export const {
   auth,
   signIn,
   signOut,
-  //   handlers: { GET, POST },
+  handlers: { GET, POST },
 } = NextAuth(authConfig);
