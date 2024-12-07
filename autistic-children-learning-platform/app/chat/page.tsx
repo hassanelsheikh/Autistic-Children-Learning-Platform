@@ -9,7 +9,7 @@ export default function Chat() {
         </h1>
 
         <div className="rounded-lg overflow-hidden shadow-lg bg-lightBlue transition-transform transform hover:scale-105 duration-300">
-          <div className="relative w-full h-64">
+          <div className="relative w-full h-80">
             <Image
               src="/kids_happy.webp"
               alt="Game 1"

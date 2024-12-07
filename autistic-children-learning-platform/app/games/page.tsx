@@ -7,9 +7,9 @@ export default function Games() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
         <div className="rounded-lg overflow-hidden shadow-lg bg-lightblue transition-transform transform hover:scale-105 duration-300">
-          <div className="relative w-full h-64">
+          <div className="relative w-full h-96">
             <Image
-              src="/kids_happy.webp"
+              src="/everyday-activities.jpg"
               alt="Game 1"
               layout="fill"
               objectFit="cover"
@@ -17,7 +17,7 @@ export default function Games() {
             />
           </div>
           <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-2">Bed Time Routine</h2>
+            <h2 className="text-2xl font-semibold mb-2">Everyday Activities</h2>
             <p className="text-darkBlue">
               You will arrange the bedtime routine steps. Explore and have fun!
             </p>
@@ -25,9 +25,9 @@ export default function Games() {
         </div>
 
         <div className="rounded-lg overflow-hidden shadow-lg bg-lightblue transition-transform transform hover:scale-105 duration-300">
-          <div className="relative w-full h-64">
+          <div className="relative w-full h-96">
             <Image
-              src="/kids_play.jpg"
+              src="/Guess that feeling.jpg"
               alt="Game 2"
               layout="fill"
               objectFit="cover"
@@ -35,7 +35,7 @@ export default function Games() {
             />
           </div>
           <div className="p-4">
-            <h2 className="text-2xl font-semibold mb-2">Facial Recognition Game</h2>
+            <h2 className="text-2xl font-semibold mb-2">Guess that Feeling</h2>
             <p className="text-darkBlue">
               Match facial expressions with feelings. Dive in and enjoy!
             </p>
