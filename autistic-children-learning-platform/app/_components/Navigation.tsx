@@ -7,12 +7,12 @@ export default async function Navigation() {
     <nav className="z-10 text-xl">
       <ul className="flex gap-16 items-center">
         <li>
-          <Link href="/" className="hover:text-accent-400 transition-colors">
+          <Link href="/games" className="hover:text-accent-400 transition-colors">
             Games
           </Link>
         </li>
         <li>
-          <Link href="/" className="hover:text-accent-400 transition-colors">
+          <Link href="/chat" className="hover:text-accent-400 transition-colors">
             Chat
           </Link>
         </li>
