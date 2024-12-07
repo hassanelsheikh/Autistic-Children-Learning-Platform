@@ -1,4 +1,4 @@
-"use client";
+// Controls.tsx
 import { useVoice } from "@humeai/voice-react";
 import { Button } from "./ui/button";
 import { Mic, MicOff, Phone } from "lucide-react";
@@ -7,17 +7,31 @@ import { Toggle } from "./ui/toggle";
 import MicFFT from "./MicFFT";
 import { cn } from "../_lib/utils";
 
-export default function Controls() {
-  const { disconnect, status, isMuted, unmute, mute, micFft } = useVoice();
+interface ControlsProps {
+  status: any;
+  cameraStream: MediaStream | null;
+  stopCamera: () => void;
+  handleEndCall: () => void;
+}
+
+export default function Controls({
+  status,
+  cameraStream,
+  stopCamera,
+  handleEndCall,
+}: ControlsProps) {
+  const { isMuted, unmute, mute, micFft } = useVoice();
+
+  if (!status) {
+    return null;
+  }
 
   return (
     <div
-      className={
-        cn(
-          "fixed bottom-0 left-0 w-full p-4 flex items-center justify-center",
-          "bg-gradient-to-t from-card via-card/90 to-card/0",
-        )
-      }
+      className={cn(
+        "fixed bottom-0 left-0 w-full p-4 flex items-center justify-center",
+        "bg-gradient-to-t from-card via-card/90 to-card/0"
+      )}
     >
       <AnimatePresence>
         {status.value === "connected" ? (
@@ -61,9 +75,7 @@ export default function Controls() {
 
             <Button
               className={"flex items-center gap-1"}
-              onClick={() => {
-                disconnect();
-              }}
+              onClick={handleEndCall} // Call the handleEndCall function passed from parent
               variant={"destructive"}
             >
               <span>

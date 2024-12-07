@@ -1,13 +1,13 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useVoice } from "@humeai/voice-react";
 import { Button } from "./ui/button";
 import { Phone } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
+import Controls from "./Controls"; 
 
-export default function StartCall() {
-  const { status, connect } = useVoice();
+export default function App() {
+  const { status, connect, disconnect } = useVoice(); 
   const [cameraStream, setCameraStream] = useState<MediaStream | null>(null);
 
   // Function to start the camera and set the stream
@@ -15,13 +15,22 @@ export default function StartCall() {
     try {
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
-        audio: false, // No need for audio
+        audio: false, 
       });
 
       // Set the stream state
       setCameraStream(stream);
     } catch (err) {
       console.error("Error accessing camera: ", err);
+    }
+  };
+
+  // Function to stop the camera and release the tracks
+  const stopCamera = () => {
+    if (cameraStream) {
+      const tracks = cameraStream.getTracks();
+      tracks.forEach((track) => track.stop()); // Stop all media tracks
+      setCameraStream(null); // Clear the camera stream
     }
   };
 
@@ -35,6 +44,11 @@ export default function StartCall() {
       });
   };
 
+  const handleEndCall = () => {
+    disconnect(); // Disconnect the call
+    stopCamera(); // Stop the camera
+  };
+
   // Ensure the camera stream is applied to the video element after it's set
   useEffect(() => {
     if (cameraStream) {
@@ -45,12 +59,12 @@ export default function StartCall() {
         videoElement.srcObject = cameraStream;
       }
     }
-  }, [cameraStream]); // Re-run when cameraStream changes
+  }, [cameraStream]);
 
   return (
-    <>
+    <div>
       <AnimatePresence>
-        {status.value !== "connected" ? (
+        {status?.value !== "connected" ? (
           <motion.div
             className="fixed inset-0 p-4 flex items-center justify-center bg-background"
             initial="initial"
@@ -62,29 +76,27 @@ export default function StartCall() {
               exit: { opacity: 0 },
             }}
           >
-            <AnimatePresence>
-              <motion.div
-                variants={{
-                  initial: { scale: 0.5 },
-                  enter: { scale: 1 },
-                  exit: { scale: 0.5 },
-                }}
+            <motion.div
+              variants={{
+                initial: { scale: 0.5 },
+                enter: { scale: 1 },
+                exit: { scale: 0.5 },
+              }}
+            >
+              <Button
+                className="flex items-center gap-1.5"
+                onClick={handleStartCall}
               >
-                <Button
-                  className="flex items-center gap-1.5"
-                  onClick={handleStartCall}
-                >
-                  <span>
-                    <Phone
-                      className="size-4 opacity-50"
-                      strokeWidth={2}
-                      stroke="currentColor"
-                    />
-                  </span>
-                  <span>Start Call</span>
-                </Button>
-              </motion.div>
-            </AnimatePresence>
+                <span>
+                  <Phone
+                    className="size-4 opacity-50"
+                    strokeWidth={2}
+                    stroke="currentColor"
+                  />
+                </span>
+                <span>Start Call</span>
+              </Button>
+            </motion.div>
           </motion.div>
         ) : null}
       </AnimatePresence>
@@ -108,6 +120,13 @@ export default function StartCall() {
           }}
         />
       )}
-    </>
+
+      <Controls
+        status={status}
+        cameraStream={cameraStream}
+        stopCamera={stopCamera}
+        handleEndCall={handleEndCall}
+      />
+    </div>
   );
 }
