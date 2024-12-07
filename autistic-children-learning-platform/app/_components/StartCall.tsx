@@ -1,5 +1,6 @@
 "use client";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 import { useVoice } from "@humeai/voice-react";
 import { Button } from "./ui/button";
 import { Phone } from "lucide-react";
@@ -9,24 +10,16 @@ export default function StartCall() {
   const { status, connect } = useVoice();
   const [cameraStream, setCameraStream] = useState<MediaStream | null>(null);
 
+  // Function to start the camera and set the stream
   const startCamera = async () => {
     try {
-      // Access the camera
       const stream = await navigator.mediaDevices.getUserMedia({
         video: true,
-        audio: false, // Disable audio if not needed
+        audio: false, // No need for audio
       });
 
-      // Set the video stream to state
+      // Set the stream state
       setCameraStream(stream);
-
-      // Optionally, display the video stream in a <video> element
-      const videoElement = document.getElementById(
-        "cameraVideo"
-      ) as HTMLVideoElement;
-      if (videoElement) {
-        videoElement.srcObject = stream;
-      }
     } catch (err) {
       console.error("Error accessing camera: ", err);
     }
@@ -42,14 +35,24 @@ export default function StartCall() {
       });
   };
 
+  // Ensure the camera stream is applied to the video element after it's set
+  useEffect(() => {
+    if (cameraStream) {
+      const videoElement = document.getElementById(
+        "cameraVideo"
+      ) as HTMLVideoElement;
+      if (videoElement) {
+        videoElement.srcObject = cameraStream;
+      }
+    }
+  }, [cameraStream]); // Re-run when cameraStream changes
+
   return (
     <>
       <AnimatePresence>
         {status.value !== "connected" ? (
           <motion.div
-            className={
-              "fixed inset-0 p-4 flex items-center justify-center bg-background"
-            }
+            className="fixed inset-0 p-4 flex items-center justify-center bg-background"
             initial="initial"
             animate="enter"
             exit="exit"
@@ -68,14 +71,14 @@ export default function StartCall() {
                 }}
               >
                 <Button
-                  className={"flex items-center gap-1.5"}
+                  className="flex items-center gap-1.5"
                   onClick={handleStartCall}
                 >
                   <span>
                     <Phone
-                      className={"size-4 opacity-50"}
+                      className="size-4 opacity-50"
                       strokeWidth={2}
-                      stroke={"currentColor"}
+                      stroke="currentColor"
                     />
                   </span>
                   <span>Start Call</span>
@@ -96,9 +99,12 @@ export default function StartCall() {
             position: "absolute",
             top: "20px",
             right: "20px",
-            width: "300px", // Adjust size
-            height: "auto",
+            width: "120px", // Adjust size for the small circle
+            height: "120px", // Maintain square aspect ratio
             zIndex: 10, // Ensure it's visible above chat
+            borderRadius: "50%", // Make it circular
+            border: "2px solid #fff", // Optional: add border for visibility
+            objectFit: "cover", // Ensure the video fits within the circle
           }}
         />
       )}
