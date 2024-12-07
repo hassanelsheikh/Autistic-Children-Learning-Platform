@@ -30,7 +30,6 @@ const authConfig = {
     async session({ session, user }) {
       const age = await getAge(session.user.email);
       session.user.age = age;
-      console.log(age);
       return session;
     },
   },

@@ -1,14 +1,21 @@
 import { auth } from "@app/_lib/auth";
 import Rate from "@app/_components/Rate";
 
-export default async function Page() {
+interface PageProps {
+  params: {
+    game: string;
+  };
+}
+
+export default async function Page({ params }: PageProps) {
   const session = await auth();
+
   return (
     <div>
       {/* <h1 className="text-center text-5xl text-accent-500">Guess How I Feel!</h1> */}
       <div className="flex justify-center mt-10">
         <iframe
-          src="/godot-game/Autism.html"
+          src={`/godot-game/${params.game}/index.html`}
           width="1000"
           height="600"
           style={{
