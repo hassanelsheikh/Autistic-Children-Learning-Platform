@@ -4,15 +4,21 @@ export default async function Navigation() {
   const session = await auth();
 
   return (
-    <nav className="z-10 text-xl">
+    <nav className="z-30 text-xl">
       <ul className="flex gap-16 items-center">
         <li>
-          <Link href="/games" className="hover:text-accent-400 transition-colors">
+          <Link
+            href="/games"
+            className="hover:text-accent-400 transition-colors"
+          >
             Games
           </Link>
         </li>
         <li>
-          <Link href="/chat" className="hover:text-accent-400 transition-colors">
+          <Link
+            href="/companion"
+            className="hover:text-accent-400 transition-colors"
+          >
             Chat
           </Link>
         </li>
