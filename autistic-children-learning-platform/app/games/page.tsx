@@ -10,7 +10,7 @@ export default function Games() {
           <Link href="/games/game1">
             <div className="relative w-full h-96">
               <Image
-                src="/everyday-activities.jpg"
+                src="/Guess that feeling.jpg"
                 alt="Game 1"
                 layout="fill"
                 objectFit="cover"
@@ -30,7 +30,7 @@ export default function Games() {
           <Link href="/games/game2">
             <div className="relative w-full h-96">
               <Image
-                src="/Guess that feeling.jpg"
+                src="/everyday-activities.jpg"
                 alt="Game 2"
                 layout="fill"
                 objectFit="cover"

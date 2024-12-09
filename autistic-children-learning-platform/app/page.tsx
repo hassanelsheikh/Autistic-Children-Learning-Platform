@@ -20,7 +20,7 @@ export default function Home() {
           Welcome to CUFE Platform
         </h1>
         <Link
-          href="/cabins"
+          href="/aboutUs"
           className="bg-accent-500 px-8 py-6 text-primary-800 text-lg font-semibold hover:bg-accent-600 transition-all"
         >
           Discover Our Learning Approach
