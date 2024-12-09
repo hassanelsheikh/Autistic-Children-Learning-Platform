@@ -9,13 +9,14 @@ interface PageProps {
 
 export default async function Page({ params }: PageProps) {
   const session = await auth();
+  const { game } = await params;
 
   return (
     <div>
       {/* <h1 className="text-center text-5xl text-accent-500">Guess How I Feel!</h1> */}
       <div className="flex justify-center mt-10">
         <iframe
-          src={`/godot-game/${params.game}/index.html`}
+          src={`/godot-game/${game}/index.html`}
           width="1000"
           height="600"
           style={{
