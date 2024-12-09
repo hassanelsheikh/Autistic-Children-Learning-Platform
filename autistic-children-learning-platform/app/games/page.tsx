@@ -7,10 +7,10 @@ export default function Games() {
       <h1 className="text-4xl font-bold text-center mb-8">Games</h1>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="rounded-lg overflow-hidden shadow-lg bg-lightblue transition-transform transform hover:scale-105 duration-300">
-          <Link href="/games/game1">
+          <Link href="/games/game2">
             <div className="relative w-full h-96">
               <Image
-                src="/Guess that feeling.jpg"
+                src="/everyday-activities.jpg"
                 alt="Game 1"
                 layout="fill"
                 objectFit="cover"
@@ -27,10 +27,10 @@ export default function Games() {
         </div>
 
         <div className="rounded-lg overflow-hidden shadow-lg bg-lightblue transition-transform transform hover:scale-105 duration-300">
-          <Link href="/games/game2">
+          <Link href="/games/game1">
             <div className="relative w-full h-96">
               <Image
-                src="/everyday-activities.jpg"
+                src="/Guess that feeling.jpg"
                 alt="Game 2"
                 layout="fill"
                 objectFit="cover"
